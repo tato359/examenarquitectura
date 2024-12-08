@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+
+<div class="container" >
+  <h2 class="text-center">Administracion de Usuarios</h2>
+  <div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px; padding: 20px;">
+    <form id="form" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #3F5159; color: white">
+        <div class="col-sm-12 col-md-4" style="border-radius: 10px; padding: 20px;">
+          {{ form_usuario|as_bootstrap_form }}
+        </div>
+        <div class="col-sm-12 col-md-4" style="border-radius: 10px; padding: 20px;">
+          {{ form_perfil|as_bootstrap_form }}
+        </div>
+        <div class="col-sm-12 col-md-3 text-center">
+          <div class="row "><!-- AREA DE CUADRO DE IMAGEN: Imagen de perfil (VER COMENTARIO "CUADRO DE IMAGEN" en script.js) -->
+            <div class="text-center">
+              <img id="cuadro-imagen" style="weight: 300px ;border: 1px solid #ccc; border-radius: 10px; padding: 20px;" src="{% static 'core/img/sin-imagen.png' %}">
+            </div>
+            <!-- AREA DE BOTONES -->
+            <div class="mt-2 mb-3 text-center"> 
+              <div class="container">
+                <button type="submit" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A"> Guardar </button>
+                &nbsp;
+                <a href="{% url 'usuarios' 'crear' '0' %}" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A"> Nuevo </a>
+              </div>
+              <br>
+              <div class="container"><!-- AREA DE BOTON DE SELECCIONAR IMAGEN: Reemplaza el botón "Seleccionar archivo" por otro con Bootstrap (VER COMENTARIO "BOTON IMAGEN" en script.js) -->
+                <button onclick="event.preventDefault(); document.getElementById('id_imagen').click();" class="btn" style="background-color: navy; border-color: #C7AE6A; color: white"> Seleccionar imagen </button>  
+                <br>
+                {% if form_usuario.instance.id %}
+                <a class="btn" style="background-color: #800000; color: white" href="{% url 'usuarios' 'eliminar' form_usuario.instance.id %}"> Eliminar </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <br>
+    <br>
+  
+    <!-- AREA DE TABLA DE USUARIOS -->
+  
+    {% comment %} 
+    
+    {% if usuarios %} 
+    
+    {% endcomment %}
+  
+      <table id="tabla-principal" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"> ID </th>
+            <th scope="col"> Cuenta </th>
+            <th scope="col"> Tipo usuario </th>
+            <th scope="col"> Nombre </th>
+            <th scope="col"> Apellidos </th>
+            <th scope="col"> Correo </th>
+            <th scope="col"> RUT </th>
+            <th scope="col"> Subscrito </th>
+            <th scope="col"> Imagen </th>
+            <th scope="col"> Acciones </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for usuario in usuarios %}
+          <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.perfil.tipo_usuario  }}</td>
+            <td>{{ usuario.first_name }}</td>
+            <td>{{ usuario.last_name }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.perfil.rut }}</td>
+            <td> {% if usuario.perfil.subscrito %} Sí {% else %} No {% endif %} </td>
+            <td>
+              <img src="/media/{{ usuario.perfil.imagen }}" class="usuario-sm" alt="">
+            </td>
+            <td>
+              <div class="btn-group">
+                <a href="{% url 'usuarios' 'actualizar' usuario.id %}" class="btn btn-sm" style="background-color: #C7AE6A; color:white"> Editar </a>
+                <a href="{% url 'usuarios' 'eliminar' usuario.id %}" class="btn btn-sm" style="background-color: #800000; color: white"> Eliminar </a>
+                <form action="{% url 'cambiar_password' %}" method="post" id="form_{{ usuario.username }}">
+                  {% csrf_token %}
+                  <input type="hidden" id="username" name="username" value="{{ usuario.username }}">
+                  <button class="btn btn-dark btn-sm" id="id_generar_password" onclick="document.getElementById('form_{{ usuario.username }}').submit();"> Contraseña </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    
+    {% comment %} 
+    
+    {% endif %} 
+    
+    {% endcomment %}
+  </div>
+</div>
+    
+    
+{% endblock content %}
+    
+{% block script %}
+  <script src="{% static 'core/js/usuarios.js' %}"></script>
+{% endblock script %}
+    

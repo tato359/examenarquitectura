@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    <div id="carouselExampleCaptions" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active" style="max-height: 650px">
+          <img src="{% static 'core/img/pc.jpg' %}" class="d-block w-100" alt="..." />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 style="text-shadow: 2px 2px 3px black">Monitores y mas</h5>
+            <p style="text-shadow: 2px 2px 3px black">
+              Todo lo que buscas en un solo lugar.
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item" style="max-height: 650px">
+          <img src="{% static 'core/img/Series_Banner.jpg' %}" class="d-block w-100" alt="..." />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 style="text-shadow: 2px 2px 3px black">Xbox Series</h5>
+            <p style="text-shadow: 2px 2px 3px black">
+              Donde el entretenimiento cobra vida con cada pulsación.
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item" style="max-height: 650px">
+          <img src="{% static 'core/img/Ps5_Banner.jpg' %}" class="d-block w-100" alt="..." />
+          <div class="carousel-caption d-none d-md-block">
+            <h5 style="color: black">PlayStation 5</h5>
+            <p style="color: black">
+              Potencia, velocidad y experiencias de juego nunca vistas.
+            </p>
+          </div>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <br />
+    <br />
+    {% if productos %}
+
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        {% for producto in productos %}
+        <div class="card" style="width: 18rem">
+          <a href="{% url 'ficha' producto.id %}" class="link-bloque">
+            <img src="/media/{{ producto.imagen }}" class="card-img-top" alt=""><br>
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ producto.nombre }}
+              </h5>
+              <br>
+              <p class="card-text">
+                  <span class="index_subscrito">{{ producto.html_estado|safe }}</span>
+                  <br>
+                  <span class="index_precio">{{ producto.html_precio|safe }}</span>
+                  <br>
+                  <span class="index_stock">{{ producto.html_stock }}</span>
+              </p>
+            </div>
+            <div class="card-body">
+              <a href="{% url 'ficha' producto.id %}" class="btn" style="background-color: #B99A45; color: white;">Comprar Ahora</a>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+        
+      </div>
+    </div>
+    {% else %}
+  
+    <h2>No se encontraron productos</h2>
+  {% endif %}
+{% endblock content %}

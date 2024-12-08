@@ -1,0 +1,78 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<br />
+<section  style="text-align: center;" >
+    <h2 style="text-align: center; font-weight: bolder">electroniks Chile Ltda.</h2>
+    <h4 style="text-align: center; font-weight: bolder">Donde la diversión cobra vida</h4>
+    <p class="paragraph">
+        ¡Bienvenido a electroniks, tu paraíso gamer! Descubre una amplia selección
+        de los títulos más emocionantes, desde clásicos atemporales hasta las
+        últimas novedades en el mundo del gaming. Nuestros expertos están listos
+        para ayudarte a encontrar la experiencia de juego perfecta. ¡Sumérgete en
+        la diversión en electroniks!
+    </p>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-6 d-flex cards-container">
+                <div class="card" style="width: 18rem">
+                    <img src="{% static 'core/img/CEO.png' %}" class="card-img-top" style="width: 200px; margin: auto; margin-top: 10px;" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">CEO</h5>
+                        <br>
+                        <p class="card-text">
+                            Líder máximo responsable de la tienda. Define la visión
+                            estratégica y toma decisiones clave para el éxito del negocio.
+                        </p>
+                        <br>
+                        <a href="mailto:info@electroniks.cl" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A">Enviar Correo</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem">
+                    <img src="{% static 'core/img/Logistica.png' %}" class="card-img-top" style="width: 200px; margin: auto; margin-top: 10px;" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">Logística</h5>
+                        <br>
+                        <p class="card-text">
+                            Gestiona la cadena de suministro y el inventario para asegurar
+                            un flujo operativo sin contratiempos.
+                        </p>
+                        <br>
+                        <a href="mailto:info@electroniks.cl" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A">Enviar Correo</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem">
+                    <img src="{% static 'core/img/Marketing.png' %}" class="card-img-top" style="width: 200px; margin: auto; margin-top: 10px;" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">Marketing</h5>
+                        <br>
+                        <p class="card-text">
+                            Dirige las estrategias de promoción además de la publicidad para aumentar
+                            la visibilidad y las ventas de la tienda.
+                        </p>
+                        <br>
+                        <a href="mailto:info@electroniks.cl" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A">Enviar Correo</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem">
+                    <img src="{% static 'core/img/Diseñador.png' %}" class="card-img-top" style="width: 200px; margin: auto; margin-top: 10px;" alt="..." />
+                    <div class="card-body">
+                        <h5 class="card-title">Diseñador</h5>
+                        <br>
+                        <p class="card-text">
+                            Crea la estética visual de la tienda, incluyendo diseño web,
+                            gráficos promocionales y merchandising.
+                        </p>
+                        <br>
+                        <a href="mailto:info@electroniks.cl" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A">Enviar Correo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'poblar'%}" class="btn btn-dark" style="text-align: center" >poblar</a>
+  </section>
+{% endblock content %}

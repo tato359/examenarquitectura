@@ -1,0 +1,132 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container" style="text-align: center;">
+  <h2 class="text-center">Mantenedor de Productos</h2>
+  <section>
+    <form id="form" method="POST" enctype="multipart/form-data" class="d-flex flex-wrap">
+      <div class="row" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #3F5159; color: white">
+        <!-- Columna del formulario -->
+         <div class="col-md-6">
+          <div class="container-fluid" style="border-radius: 30px; background-color: #3F5159;">
+            {% csrf_token %}
+            <div  class="container" style="margin-left: 10px; font-weight: bold; background-color: #3F5159; color: white">
+              {{ form.categoria|as_bootstrap_field }} <br>
+              {{ form.nombre|as_bootstrap_field }}<br>
+              {{ form.descripcion|as_bootstrap_field }}<br>
+              {{ form.precio|as_bootstrap_field }}<br>
+              <fieldset class="border-4 p-2" style="border-radius: 10px; font-weight: bold;">
+                <legend>Porcentaje descuentos</legend>
+                {{ form.descuento_subscriptor|as_bootstrap_field }}<br>
+                {{ form.descuento_oferta|as_bootstrap_field }}<br>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <!-- Columna de la imagen -->
+         <div class="col-md-6" >
+          <div class=" container py-4" style="border-radius: 30px; padding: 20px; background-color: #3F5159; color: white">
+            <div class="row">
+              <!-- AREA DE CUADRO DE IMAGEN -->
+              <div class="col-sm-12 text-center" >
+                {% if form.imagen.value %}
+                <img id="cuadro-imagen" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;" src="/media/{{ form.imagen.value }}" class="img-fluid">
+                {% else %}
+                <img id="cuadro-imagen" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;" src="{% static 'core/img/sin-imagen.png' %}" class="img-fluid">
+                {% endif %}
+                {{ form.imagen|as_bootstrap_field }}
+              </div>
+              <!-- AREA DE BOTONES -->
+              <div class="col-sm-12 text-center  mt-4">
+                <div class="d-grid gap-2 d-md-block">
+                  <input type="submit" class="btn" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A" value="Guardar">
+                  <a class="btn" href="{% url 'productos' 'crear' '0' %}" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A"> Nuevo </a>
+                  <!-- <a type="submit" class="btn btn-primary" href="{% url 'productos' 'eliminar' form.instance.id %}">Eliminar</a> -->
+                  {% if form.instance.id %}
+                  <a class="btn" href="{% url 'productos' 'eliminar' form.instance.id %}" style="background-color: #000; border-color: #C7AE6A; color: #C7AE6A"> Eliminar </a>
+                  {% endif %} 
+                  <div class="container" style="padding-top: 10px;">
+                    <button class="btn" style="background-color: navy; border-color: #C7AE6A; color: white" onclick="event.preventDefault(); document.getElementById('id_imagen').click();"> Seleccionar imagen </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+
+
+  {% comment %} 
+  
+  {% if productos %} 
+  
+  {% endcomment %}
+
+  <!-- <div class="instrucciones-para-el-alumno">
+    INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
+    - Construye tu tabla de productos, pero puedes usar los campos sugeridos. <br>
+  </div> -->
+  <div class="container text-center" style="padding:  30px;">
+    <div class="container bg-white py-4 pt-4" style="border-radius: 10px;">
+      <section class="text-center" >
+        <table id="tabla-principal" class="table table-hover">
+          <thead>
+              <tr>
+                  <th scope="col"> ID </th>
+                  <th scope="col" class="d-none d-lg-block d-lg-table-cell"> Categoría </th>
+                  <th scope="col"> Nombre </th>
+                  <th scope="col" class="text-center text-end"> Descripción </th>
+                  <th scope="col" class="text-center text-end d-none d-lg-block d-lg-table-cell"> Precio </th>
+                  <th scope="col" class="text-center text-end d-none d-lg-block d-lg-table-cell"> %Subs </th>
+                  <th scope="col" class="text-center text-end d-none d-lg-block d-lg-table-cell"> %Oferta </th>
+                  <th scope="col"> Imagen </th>
+                  <th scope="col"> Editar </th>
+                  <th scope="col"> Eliminar </th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for producto in productos %}
+              <tr>
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.categoria }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.precio|formatear_dinero }}</td>
+                <td>{{ producto.descuento_subscriptor|formatear_porcentaje }}</td>
+                <td>{{ producto.descuento_oferta|formatear_porcentaje }}</td>
+                <td>
+                  <img height="70px" src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
+                </td>
+                <td>
+                    <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-sm" style="background-color: #C7AE6A; color:white"> Editar </a>
+                </td>
+                <td>
+                    <form method="delete">
+                        <a href="{% url 'productos' 'eliminar' producto.id %}" class="btn  btn-sm" style="background-color: #800000; color: white"> Eliminar </a>
+                    </form>
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      </section>
+  </div>
+  </div>
+  
+
+  {% comment %}     
+  
+  {% endif %}
+  
+  {% endcomment %} 
+
+{% endblock content %}
+
+{% block script %}
+  <script src="{% static 'core/js/productos.js' %}"></script>
+{% endblock script %}

@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+
+<div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px; text-align: center; width: 80%; margin: auto;">
+  <p class="ficha_titulo">
+    <a> 
+      <img src="{% static 'core/img/txtpremio.png' %}" width="700px">
+    </a>
+  </p>
+</div>
+<br>
+<div class="containerfluid">
+  <div id="lista" class="row"></div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'core/js/premio.js' %}"></script>  
+{% endblock script %}

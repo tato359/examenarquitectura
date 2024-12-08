@@ -1,0 +1,98 @@
+th {
+  vertical-align: top;
+  background-color: lightgray !important;
+}
+
+h1{
+  color: black;
+
+}
+.carrito_img{
+  margin-left: 30px;
+  max-width: 50px;
+}
+
+.index_precio {
+  color: #00235b;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.index_subscrito {
+  color: red;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.index_stock {
+  color: #00235b;
+  font-weight: bolder;
+}
+.cards-container {
+  margin-top: 84px;
+  margin-bottom: 84px;
+}
+
+.ficha_foto {
+  height: 100%;
+  float: right;
+  border: 1px solid gray;
+}
+
+.ficha_titulo {
+  font-size: 60px;
+  font-weight: bolder;
+}
+
+.ficha_disponible {
+  color: green;
+  font-weight: bolder;
+  font-size: 30px;
+}
+
+.ficha_precio {
+  font-size: 40px;
+}
+
+.ficha_style {
+  font-family: "Roboto", sans-serif;
+  margin-left: 15px;
+}
+
+.ficha_tecnica{
+  color: black;
+}
+
+.ficha_precio_r {
+  font-family: "Roboto", sans-serif;
+  margin-left: 15px;
+  font-size: 15px;
+}
+.error{
+  color: red;
+  font-weight: border;
+}
+
+.detalle-boleta {
+  display: flex;
+  align-items: center;
+}
+
+.tarjeta_persona{
+  padding: 20px;
+}
+
+.foto_img{
+  max-width: 200px;
+  margin-left: 50px;
+}
+
+.image-container {
+  justify-content: center; /* Centra horizontalmente */
+}
+ 
+#dropdown-item{
+  border: solid blue;
+}
+  
+

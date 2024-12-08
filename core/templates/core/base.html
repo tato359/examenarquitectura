@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>electronik.</title>
+    <link rel="icon" href="{% static 'core/img/elctronik.png' %}" type="image/x-icon"/>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    />
+    <!-- BLOQUE DE ESTILOS CSS COMPARTIDO POR TODAS LAS PAGINAS -->
+    <link rel="icon" href="{% static 'core/img/elctronik.png' %}" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/page-layout.css' %}">
+
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    {% endblock stylesheet %}
+    <!-- BLOQUE DE JAVASCRIPT EN HEAD, PERSONALIZADOS PARA CADA PAGINA -->
+    {% block script-head %}
+      
+    {% endblock script-head %}
+
+</head>
+<body>
+  <!-- BLOQUE DE MENU SUPERIOR COMPARTIDO POR TODAS LAS PAGINAS -->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  
+      <div class="container-fluid" >
+  
+        <a class="navbar-brand" href="#"><img src="{% static 'core/img/elctronik.png' %}" style=" border-radius: 15%; height: 90px" alt="..."></a>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}" style="background-color: #C7AE6A;  color: white; border: solid 2px #000;">
+                  Inicio
+              </a>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'registrarme' %}" style="background-color: #C7AE6A;  color: white; border: solid 2px #000;">
+                  Sign up
+              </a>
+            </li>
+            {% endif %}
+  
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'nosotros' %}" style="background-color: #C7AE6A;  color: white ; border: solid 2px #000;">
+                  Nosotros
+              </a>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'ingresar' %}" style="background-color: #C7AE6A; color: white ; border: solid 2px #000;">
+                  Ingresar
+              </a>
+            </li>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a style="color: #C7AE6A; background-color: #000 ; marggin: 3px;" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" href="{% url 'ingresar' %}"> 
+              {% if user.is_superuser %}
+              <span class="text-danger fw-bold">
+                {% elif user.is_staff %}
+                <span class="text-success fw-bold">
+                  {% else %}
+                  <span>
+                    {% endif %}
+                    {{ first_name }} {{ last_name }}
+                    {% if user.perfil.subscrito %}
+                    (premium)
+                    {% endif %}
+                  </span>
+            </a>
+            <ul class="dropdown-menu" style="color: white; background-color: #000; border-color: #C7AE6A;">
+              <li><a id="dridopdown-item" class="dropdown-item" href="{% url 'misdatos' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Mis datos </a></li>
+              <li><a class="dropdown-item" href="{% url 'mipassword' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Cambiar mi contraseña </a></li>
+              {% if not user.is_staff and not user.is_superuser %}
+              <li><a class="dropdown-item" href="{% url 'miscompras' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Mis compras </a></li>
+              {% endif %}
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'salir' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Salir </a></li>
+            </ul>
+          </li>
+          {% endif %}
+            
+          {% if user.is_authenticated and user.is_staff and user.is_active or user.is_authenticated and user.is_superuser and user.is_active %}
+          <li class="nav-item dropdown">
+            <a style="color: #C7AE6A; background-color: #000 ; marggin: 3px;" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+              Admnistrar tienda
+            </a>
+            <ul class="dropdown-menu" style="color: white; background-color: #000; border-color: #C7AE6A;">
+              <li><a class="dropdown-item" href="{% url 'productos' 'crear' '0' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Productos </a></li>
+              <li><a class="dropdown-item" href="{% url 'usuarios' 'crear' '0' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Usuarios </a></li>
+              <li><a class="dropdown-item" href="{% url 'bodega' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Bodega </a></li>
+              <li><hr class="dropdown-divider" style="background-color: white"></li>
+              <li><a class="dropdown-item" href="{% url 'ventas' %}" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Ventas </a></li>
+              {% if user.is_authenticated and user.is_superuser and user.is_active %}
+              <li><a class="dropdown-item" href="/admin" style="color: white;" onmouseover="changeColor(this, true)"
+                onmouseout="changeColor(this, false)"> Administrador de Django </a></li>
+              {% endif %}
+            </ul>
+          </li>
+          {% endif %}
+        
+            {% if mostrar_carrito %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'carrito' %}">
+              <img src="{% static 'core/img/carrito.png' %}" width="32px">
+              {{ cantidad_productos }}
+            </a>
+          </li>
+          {% endif %}
+          </ul>        
+          <form  method="post" action="{% url 'inicio' %}" class="d-flex" role="search">
+            <input class="form-control me-2 border-danger" type="search" placeholder="Ingresa tu busqueda" aria-label="Search" id="buscar" name="buscar">
+            <button class="btn btn-outline-danger" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+      </nav>
+  <div>
+    <img src="{% static 'core/img/elctroniklogo.png' %}" style="width: 100%; height: auto;">
+  </div>
+  <!-- BLOQUE DE CONTENIDO PERSONALIZADO DE CADA PAGINA DEL SITIO WEB -->
+
+  <div class="content m-3 pagelayout-2">
+    {% block content %}
+    
+    {% endblock content %}
+  </div>
+      <footer class="footer">
+      <div class="container" >
+        <div class="row">
+          <hr style="border-top: 1px solid black;">
+          <div
+            class="col-lg-4 d-flex justify-content-center align-items-center">
+            <div class="footer-1">
+              <img src="{% static 'core/img/elctroniklogo.png' %}" style="border-radius: 50%; width: 300px" alt="" />
+            </div>
+          </div>
+  
+          <div
+            class="col-lg-2 d-flex justify-content-center align-items-center"
+          >
+            <a href="#" style="margin-right: 10px"
+              ><img src="{% static 'core/img/facebook.png' %}" style="width: 50px" alt="Facebook"
+            /></a>
+            <a href="#" style="margin-right: 10px"
+              ><img src="{% static 'core/img/twitter.png' %}" style="width: 50px" alt="Twitter"
+            /></a>
+            <a href="#"
+              ><img src="{% static 'core/img/insta.png' %}" style="width: 50px" alt="Instagram"
+            /></a>
+          </div>
+  
+          <div class="col-lg-3">
+            <br />
+            <h6>HORARIO DE ATENCIÓN WEB</h6>
+            <p>Lunes a Viernes: De 08:00 AM a 17:30</p>
+            <h6>CONTACTO</h6>
+            <p>
+              Contáctenos a través de nuestras redes sociales o por correo
+              electronico:
+              <a href="mailto:info@electronik.cl" style="color: navy"
+                >info@electroniks.cl</a
+              >
+            </p>
+          </div>
+          <div class="col-lg-3">
+            <br />
+            <h6>SANTIAGO</h6>
+            <p>
+              Dirección: Av. Andrés Bello 2425, RM <br />Lunes a Viernes: De
+              09:00 AM a 18:00 PM
+            </p>
+  
+            <h6>VIÑA DEL MAR</h6>
+            <p>
+              Dirección: Av. Libertad 1348, Valparaíso <br />Lunes a Viernes: De
+              08:30 AM a 17:30 PM
+            </p>
+          </div>
+          <div class="col-md-12 text-right" style="text-align: center">
+            <p>&copy; 2024 electroniks. Todos los derechos reservados.</p>
+          </div>
+        </div>
+      </div>
+      </footer>
+
+
+  <!-- BLOQUE DE SCRIPTS COMPARTIDOS POR TODAS LAS PAGINAS -->
+  <div class="pagelayout-4">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="{% static 'core/js/script.js' %}"></script>
+    <script>
+      // Función para cambiar el color del enlace
+      function changeColor(element, isHovered) {
+          if (isHovered) {
+              // Cambiar el color al pasar el mouse
+              element.style.backgroundColor = '#444';
+          } else {
+              // Restaurar el color original cuando el mouse sale
+              element.style.backgroundColor = '#000';
+          }
+      }
+    </script>
+  </div>
+
+  <div class="pagelayout-5">
+    {% block script %} 
+    {% endblock script %}
+  </div>
+
+    <!-- BLOQUE PARA MOSTRAR MENSAJES EMERGENTES USANDO "SweetAlert2", COMPARTIDO POR TODAS LAS PAGINAS -->
+   <div class="pagelayout-6">
+    {% include 'common/mostrar_mensajes.html' %}
+  </div>
+</body>
+</html>
