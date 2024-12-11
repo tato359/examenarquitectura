@@ -276,38 +276,56 @@ def poblar_bd(test_user_email=''):
          'descuento_oferta': 15,
          'imagen': 'productos/audifonos_hyperx.jpg'
      },
-     
-     {
-         'id': 9,
-         'categoria': Categoria.objects.get(id=4),
-         'nombre': 'Audífonos HyperX Cloud II',
-         'descripcion': 'Audífonos gamer con sonido envolvente 7.1, micrófono desmontable y almohadillas cómodas para largas sesiones de uso.',
-         'precio': 99990,
-         'descuento_subscriptor': 10,
-         'descuento_oferta': 15,
-         'imagen': 'productos/audifonos_hyperx.jpg'
-     },
-     
+    {
+        'id': 9,
+        'categoria': Categoria.objects.get(id=3),  # Monitor
+        'nombre': 'Monitor ASUS TUF Gaming VG259Q',
+        'descripcion': 'Monitor de 24.5" Full HD con panel IPS, frecuencia de actualización de 144Hz y tecnología G-SYNC compatible para experiencias de juego fluidas.',
+        'precio': 199990,
+        'descuento_subscriptor': 10,
+        'descuento_oferta': 20,
+        'imagen': 'productos/monitor_asus_tuf.jpg'
+    },
     {
         'id': 10,
-        'categoria': Categoria.objects.get(id=4),
-        'nombre': 'Audífonos HyperX Cloud II',
-        'descripcion': 'Audífonos gamer con sonido envolvente 7.1, micrófono desmontable y almohadillas cómodas para largas sesiones de uso.',
-        'precio': 99990,
-        'descuento_subscriptor': 10,
-        'descuento_oferta': 15,
-        'imagen': 'productos/audifonos_hyperx.jpg'
+        'categoria': Categoria.objects.get(id=3),  # Monitor
+        'nombre': 'Monitor Samsung Odyssey G5',
+        'descripcion': 'Monitor curvo de 27" con resolución QHD, frecuencia de 144Hz y soporte HDR10 para juegos inmersivos.',
+        'precio': 249990,
+        'descuento_subscriptor': 15,
+        'descuento_oferta': 25,
+        'imagen': 'productos/monitor_samsung_odyssey.jpg'
     },
     {
         'id': 11,
-        'categoria': Categoria.objects.get(id=4),
+        'categoria': Categoria.objects.get(id=4),  # Audífonos
         'nombre': 'Audífonos HyperX Cloud II',
-        'descripcion': 'Audífonos gamer con sonido envolvente 7.1, micrófono desmontable y almohadillas cómodas para largas sesiones de uso.',
-        'precio': 99990,
+        'descripcion': 'Audífonos gaming con sonido envolvente 7.1 virtual, almohadillas de memory foam y micrófono desmontable.',
+        'precio': 89990,
+        'descuento_subscriptor': 10,
+        'descuento_oferta': 10,
+        'imagen': 'productos/audifonos_hyperx_cloud2.jpg'
+    },
+    {
+        'id': 12,
+        'categoria': Categoria.objects.get(id=2),  # Mouse
+        'nombre': 'Mouse Logitech G502 HERO',
+        'descripcion': 'Mouse gaming con sensor HERO 25K, 11 botones programables y sistema de pesas ajustables.',
+        'precio': 59990,
         'descuento_subscriptor': 10,
         'descuento_oferta': 15,
-        'imagen': 'productos/audifonos_hyperx.jpg'
-    },    
+        'imagen': 'productos/mouse_logitech_g502.jpg'
+    },
+    {
+        'id': 13,
+        'categoria': Categoria.objects.get(id=3),  # Monitor
+        'nombre': 'Monitor LG UltraGear 24GN600',
+        'descripcion': 'Monitor de 24" con panel IPS, resolución Full HD, 144Hz y tiempo de respuesta de 1ms para juegos de alta velocidad.',
+        'precio': 179990,
+        'descuento_subscriptor': 10,
+        'descuento_oferta': 15,
+        'imagen': 'productos/monitor_lg_ultragear.jpg'
+    },   
 ]
 
     print('Crear productos')
